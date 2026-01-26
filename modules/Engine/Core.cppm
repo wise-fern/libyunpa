@@ -35,16 +35,16 @@ private:
       _window.create(mode, title);
     }
 
-    void setNextScene(ScenePtr nextScene) {
+    void setNextScene(ScenePtr nextScene) noexcept {
       _sceneMan.setNextScene(std::move(nextScene));
     }
 
     [[nodiscard]]
-    auto getCurrentScene() const -> ScenePtr {
+    auto getCurrentScene() const noexcept -> ScenePtr {
       return _sceneMan.getCurrentScene();
     }
 
-    void run() {
+    void run() noexcept {
       _clock.restart();
       gameLoop();
     }
@@ -54,7 +54,8 @@ private:
   static bool _initialized;
 
 public:
-  static void Initialize(const sf::VideoMode &mode, const sf::String &title) {
+  static void Initialize(const sf::VideoMode &mode,
+                         const sf::String &title) noexcept {
     if (_initialized) {
       return;
     }
@@ -63,19 +64,19 @@ public:
   }
 
   static void Initialize(unsigned int width, unsigned int height,
-                         const sf::String &title) {
+                         const sf::String &title) noexcept {
     Initialize(sf::VideoMode({width, height}), title);
   }
 
-  static void SetNextScene(ScenePtr nextScene) {
+  static void SetNextScene(ScenePtr nextScene) noexcept {
     _instance->setNextScene(std::move(nextScene));
   }
 
-  static auto GetCurrentScene() -> ScenePtr {
+  static auto GetCurrentScene() noexcept -> ScenePtr {
     return _instance->getCurrentScene();
   }
 
-  static void Run() { _instance->run(); }
+  static void Run() noexcept { _instance->run(); }
 };
 
 bool Core::_initialized = false;
