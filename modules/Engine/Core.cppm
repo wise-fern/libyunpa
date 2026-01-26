@@ -11,8 +11,8 @@ export class Core {
 private:
   class impl {
   private:
-    Clock _clock;
-    SceneManager _sceneMan;
+    Clock            _clock;
+    SceneManager     _sceneMan;
     sf::RenderWindow _window;
 
     void gameLoop() {
@@ -31,54 +31,52 @@ private:
     }
 
   public:
-    impl(const sf::VideoMode &mode, const sf::String &title) {
+    impl(const sf::VideoMode& mode, const sf::String& title) {
       _window.create(mode, title);
     }
 
-    void setNextScene(ScenePtr nextScene) noexcept {
+    void setNextScene(ScenePtr nextScene) {
       _sceneMan.setNextScene(std::move(nextScene));
     }
 
     [[nodiscard]]
-    auto getCurrentScene() const noexcept -> ScenePtr {
+    auto getCurrentScene() const -> ScenePtr {
       return _sceneMan.getCurrentScene();
     }
 
-    void run() noexcept {
+    void run() {
       _clock.restart();
       gameLoop();
     }
   };
 
   static std::unique_ptr<impl> _instance;
-  static bool _initialized;
+  static bool                  _initialized;
 
 public:
-  static void Initialize(const sf::VideoMode &mode,
-                         const sf::String &title) noexcept {
+  static void Initialize(const sf::VideoMode& mode, const sf::String& title) {
     if (_initialized) {
       return;
     }
     _initialized = true;
-    _instance = std::make_unique<impl>(mode, title);
+    _instance    = std::make_unique<impl>(mode, title);
   }
 
-  static void Initialize(unsigned int width, unsigned int height,
-                         const sf::String &title) noexcept {
+  static void Initialize(
+    unsigned int width, unsigned int height, const sf::String& title) {
     Initialize(sf::VideoMode({width, height}), title);
   }
 
-  static void SetNextScene(ScenePtr nextScene) noexcept {
+  static void SetNextScene(ScenePtr nextScene) {
     _instance->setNextScene(std::move(nextScene));
   }
 
-  static auto GetCurrentScene() noexcept -> ScenePtr {
+  static auto GetCurrentScene() -> ScenePtr {
     return _instance->getCurrentScene();
   }
 
-  static void Run() noexcept { _instance->run(); }
+  static void Run() {
+    _instance->run();
+  }
 };
-
-bool Core::_initialized = false;
-std::unique_ptr<Core::impl> Core::_instance = nullptr;
 } // namespace libyunpa::Engine
