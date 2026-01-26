@@ -11,8 +11,8 @@ export class Core {
 private:
   class impl {
   private:
-    Clock            _clock;
-    SceneManager     _sceneMan;
+    Clock _clock;
+    SceneManager _sceneMan;
     sf::RenderWindow _window;
 
     void gameLoop() {
@@ -31,7 +31,7 @@ private:
     }
 
   public:
-    impl(const sf::VideoMode& mode, const sf::String& title) {
+    impl(const sf::VideoMode &mode, const sf::String &title) {
       _window.create(mode, title);
     }
 
@@ -51,19 +51,19 @@ private:
   };
 
   static std::unique_ptr<impl> _instance;
-  static bool                  _initialized;
+  static bool _initialized;
 
 public:
-  static void Initialize(const sf::VideoMode& mode, const sf::String& title) {
+  static void Initialize(const sf::VideoMode &mode, const sf::String &title) {
     if (_initialized) {
       return;
     }
     _initialized = true;
-    _instance    = std::make_unique<impl>(mode, title);
+    _instance = std::make_unique<impl>(mode, title);
   }
 
-  static void Initialize(
-    unsigned int width, unsigned int height, const sf::String& title) {
+  static void Initialize(unsigned int width, unsigned int height,
+                         const sf::String &title) {
     Initialize(sf::VideoMode({width, height}), title);
   }
 
@@ -75,8 +75,9 @@ public:
     return _instance->getCurrentScene();
   }
 
-  static void Run() {
-    _instance->run();
-  }
+  static void Run() { _instance->run(); }
 };
+
+bool Core::_initialized = false;
+std::unique_ptr<Core::impl> Core::_instance = nullptr;
 } // namespace libyunpa::Engine
