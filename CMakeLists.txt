@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 project(
     libyunpa
-    VERSION 0.3.0.0
+    VERSION 0.2.1
     DESCRIPTION "A library to help with Young Pastry"
     LANGUAGES CXX
 )
@@ -12,7 +12,7 @@ target_link_libraries(
     PRIVATE
     pegtl
     PUBLIC
-    SFML::Graphics
+    ftxui::modules
 )
 target_compile_options(
     ${PROJECT_NAME}

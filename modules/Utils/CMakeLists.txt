@@ -3,7 +3,5 @@ target_sources(
     PUBLIC
     FILE_SET CXX_MODULES
     FILES
-    "Core.cppm"
-    "Events.cppm"
-    "Scene.cppm"
+    "Menu.cppm"
 )

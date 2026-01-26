@@ -7,4 +7,4 @@ target_sources(
 )
 add_subdirectory("Engine")
 add_subdirectory("System")
-# add_subdirectory("Utils")
+add_subdirectory("Utils")

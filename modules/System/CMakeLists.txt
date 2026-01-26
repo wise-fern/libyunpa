@@ -3,8 +3,8 @@ target_sources(
     PUBLIC
     FILE_SET CXX_MODULES
     FILES
-    # "Helpers.cppm"
-    # "Keyboard.cppm"
-    # "Text.cppm"
+    "Helpers.cppm"
+    "Keyboard.cppm"
+    "Text.cppm"
     "Time.cppm"
 )
