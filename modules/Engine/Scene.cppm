@@ -171,5 +171,11 @@ public:
   auto hasNext() const {
     return _nextScene not_eq nullptr;
   }
+
+  auto fullExit() {
+    while (not _scenes.empty()) {
+      _scenes.pop();
+    }
+  }
 };
 } // namespace libyunpa::Engine

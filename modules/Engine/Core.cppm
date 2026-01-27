@@ -19,6 +19,8 @@ export class Core {
     EventManager  _eventMan;
     SceneManager  _sceneMan;
     ftxui::Screen _screen;
+    bool          _fullExit        = false;
+    bool          _fullExitEnabled = false;
 
     // NOLINTNEXTLINE(misc-no-recursion)
     auto render(const ScenePtr& scene) {
@@ -31,6 +33,11 @@ export class Core {
 
     auto gameLoop() {
       while (true) {
+        if (_fullExitEnabled and _fullExit) {
+          _sceneMan.fullExit();
+          return;
+        }
+        _fullExitEnabled = false;
         _gameTime.update();
         _sceneMan.update(_gameTime);
         if (_sceneMan.empty()) {
@@ -91,6 +98,14 @@ export class Core {
       gameLoop();
       _eventMan.stop();
     }
+
+    auto fullExit() {
+      _fullExit = true;
+    }
+
+    auto enableFullExit() {
+      _fullExitEnabled = true;
+    }
   };
 
   static std::unique_ptr<impl> _instance;
@@ -122,6 +137,14 @@ public:
   /// @brief Run the game
   static void Run() noexcept {
     _instance->run();
+  }
+
+  static void FullExit() noexcept {
+    _instance->fullExit();
+  }
+
+  static void EnableFullExit() noexcept {
+    _instance->enableFullExit();
   }
 };
 
