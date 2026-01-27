@@ -61,8 +61,28 @@ auto ConvertMSVK(int keyCode) -> Keys {
   case '6':
   case '7':
   case '8':
-  case '9': return ConvertCharacter(static_cast<char>(keyCode));
-  default : return MISSING_KEY;
+  case '9':
+  default : return ConvertCharacter(static_cast<char>(keyCode));
+#ifdef WIN32
+  case VK_RETURN : return KEY_RETURN;
+  case VK_SPACE  : return KEY_SPACE;
+  case VK_NUMPAD0: return KP_0;
+  case VK_NUMPAD1: return KP_1;
+  case VK_NUMPAD2: return KP_2;
+  case VK_NUMPAD3: return KP_3;
+  case VK_NUMPAD4: return KP_4;
+  case VK_NUMPAD5: return KP_5;
+  case VK_NUMPAD6: return KP_6;
+  case VK_NUMPAD7: return KP_7;
+  case VK_NUMPAD8: return KP_8;
+  case VK_NUMPAD9: return KP_9;
+  case VK_UP     : return KEY_ARROW_UP;
+  case VK_DOWN   : return KEY_ARROW_DOWN;
+  case VK_LEFT   : return KEY_ARROW_LEFT;
+  case VK_RIGHT  : return KEY_ARROW_RIGHT;
+  case VK_ESCAPE : return KEY_ESCAPE;
+  case VK_TAB    : return KEY_TAB;
+#endif
   }
 }
 
