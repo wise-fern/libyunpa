@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.28)
 project(
     libyunpa
-    VERSION 0.2.1
+    VERSION 0.4.0.0
     DESCRIPTION "A library to help with Young Pastry"
     LANGUAGES CXX
 )
