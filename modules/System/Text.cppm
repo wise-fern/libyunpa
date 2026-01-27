@@ -7,31 +7,31 @@ import std;
 namespace libyunpa {
 /// @brief Styles of underline to use with text
 export enum class Underline : std::uint8_t {
-  NONE,
-  SINGLE,
-  DOUBLE
+  None,
+  Single,
+  Double
 };
 
 /// @brief Options to use when rendering some text
 export struct TextOptions {
   /// @brief Color to use for the text
-  ftxui::Color color;
+  ftxui::Color color = ftxui::Color::White;
   /// @brief Color to use for the background
-  ftxui::Color backgroundColor;
+  ftxui::Color backgroundColor = ftxui::Color::Black;
   /// @brief Whether to @b bold the text
-  bool         bold          = false;
+  bool bold = false;
   /// @brief Whether to @a italicize the text
-  bool         italic        = false;
+  bool italic = false;
   /// @brief Whether to dim the text
-  bool         dim           = false;
+  bool dim = false;
   /// @brief Whether to invert the text and background colors
-  bool         inverted      = false;
+  bool inverted = false;
   /// @brief the style of underline to use
-  Underline    underline     = Underline::NONE;
+  Underline underline = Underline::None;
   /// @brief Whether to render the text with a strikethrough
-  bool         strikethrough = false;
+  bool strikethrough = false;
   /// @brief Whether to have the text blinke
-  bool         blink         = false;
+  bool blink = false;
 };
 
 auto RenderText(const TextOptions& options, const std::string& input)
@@ -52,9 +52,9 @@ auto RenderText(const TextOptions& options, const std::string& input)
     result = result | inverted;
   }
   switch (options.underline) {
-  case Underline::NONE  : break;
-  case Underline::SINGLE: result = result | underlined; break;
-  case Underline::DOUBLE: result = result | underlinedDouble; break;
+  case Underline::None  : break;
+  case Underline::Single: result = result | underlined; break;
+  case Underline::Double: result = result | underlinedDouble; break;
   }
   if (options.strikethrough) {
     result = result | strikethrough;
