@@ -6,28 +6,6 @@ import :Text;
 import ftxui;
 using namespace libyunpa;
 
-namespace {
-const auto DEFAULT_SELECTED = TextOptions{.color = ftxui::Color::Red,
-  .backgroundColor                               = ftxui::Color::Black,
-  .bold                                          = true,
-  .italic                                        = true,
-  .dim                                           = false,
-  .inverted                                      = false,
-  .underline                                     = Underline::SINGLE,
-  .strikethrough                                 = false,
-  .blink                                         = false};
-
-const auto DEFAULT_UNSELECTED = TextOptions{.color = ftxui::Color::White,
-  .backgroundColor                                 = ftxui::Color::Black,
-  .bold                                            = false,
-  .italic                                          = false,
-  .dim                                             = false,
-  .inverted                                        = false,
-  .underline                                       = Underline::NONE,
-  .strikethrough                                   = false,
-  .blink                                           = false};
-} // namespace
-
 namespace libyunpa::Utils {
 /// @brief Options to use when constructing a new Menu
 export struct MenuOptions {
@@ -44,20 +22,6 @@ export struct MenuOptions {
   /// @param[in] selected Text of the selected item
   std::function<void(std::string_view)> stringCallback;
 };
-
-namespace {
-const auto DEFAULT_MENU_OPTIONS = MenuOptions{.selectedItem = DEFAULT_SELECTED,
-  .unselectedItems = DEFAULT_UNSELECTED,
-  .title           = "A Menu",
-  .intCallback =
-    [](int selected) {
-      (void)selected;
-    },
-  .stringCallback =
-    [](std::string_view selected) {
-      (void)selected;
-    }};
-} // namespace
 
 /// @brief A menu to help with user input
 export class Menu {
@@ -80,7 +44,7 @@ public:
       _intCallback(options.intCallback),
       _stringCallback(options.stringCallback) {}
 
-  Menu() : Menu(DEFAULT_MENU_OPTIONS) {}
+  Menu() = default;
 
   /// @brief Add an item to the menu
   /// @param[in] item
@@ -122,6 +86,32 @@ public:
     case KEY_SPACE : _intCallback(_idx); return;
     default        : break;
     }
+  }
+
+  void setSelectedOptions(TextOptions options) {
+    _selected = options;
+  }
+
+  void setUnselectedOptions(TextOptions options) {
+    _unselected = options;
+  }
+
+  auto getSelectedOptions() -> TextOptions& {
+    return _selected;
+  }
+
+  [[nodiscard]]
+  auto getSelectedOptions() const -> const TextOptions& {
+    return _selected;
+  }
+
+  auto getUnselectedOptions() -> TextOptions& {
+    return _unselected;
+  }
+
+  [[nodiscard]]
+  auto getUnselectedOptions() const -> const TextOptions& {
+    return _unselected;
   }
 };
 } // namespace libyunpa::Utils
