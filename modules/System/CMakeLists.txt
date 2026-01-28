@@ -5,6 +5,7 @@ target_sources(
     FILES
     "Helpers.cppm"
     "Keyboard.cppm"
+    "RenderInfo.cppm"
     "Text.cppm"
     "Time.cppm"
 )
