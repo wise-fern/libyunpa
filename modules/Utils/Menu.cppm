@@ -44,7 +44,10 @@ public:
       _intCallback(options.intCallback),
       _stringCallback(options.stringCallback) {}
 
-  Menu() = default;
+  Menu() {
+    _intCallback    = [](int) {};
+    _stringCallback = [](std::string_view) {};
+  };
 
   /// @brief Add an item to the menu
   /// @param[in] item
