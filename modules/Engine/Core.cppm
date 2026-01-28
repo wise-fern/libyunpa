@@ -37,7 +37,7 @@ export class Core {
           _sceneMan.fullExit();
           return;
         }
-        _fullExitEnabled = false;
+        _fullExitEnabled = _fullExit = false;
         _gameTime.update();
         _sceneMan.update(_gameTime);
         if (_sceneMan.empty()) {
