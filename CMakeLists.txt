@@ -35,4 +35,4 @@ target_compile_options(
 )
 endif()
 add_subdirectory("modules")
-add_subdirectory("docs")
+# add_subdirectory("docs")
