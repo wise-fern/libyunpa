@@ -1,10 +1,10 @@
 module;
-#include <string>
-#include <vector>
 
 export module libyunpa.Utilities;
 export import libyunpa.Console;
 export import libyunpa.Graphics;
+export import libyunpa.System;
+import std;
 
 namespace libyunpa {
 #pragma region Menu
@@ -70,6 +70,51 @@ public:
       return;
     }
     handleKey(event.key);
+  }
+};
+
+#pragma region Timer
+
+export class Timer {
+private:
+  Duration              _elapsed = Duration::zero();
+  Duration              _interval;
+  std::function<void()> _callback;
+  bool                  _repeat;
+
+public:
+  Timer(Duration                 interval,
+    const std::function<void()>& callback,
+    bool                         repeats = false) :
+      _interval(interval), _callback(callback), _repeat(repeats) {}
+
+  auto update(const Duration& elapsed) {
+    if (_elapsed >= _interval) {
+      return;
+    }
+    _elapsed += elapsed;
+    if (_elapsed >= _interval) {
+      if (_repeat) {
+        _elapsed = Duration::zero();
+      }
+      _callback();
+    }
+  }
+
+  auto setRepeat(bool repeat) {
+    _repeat = repeat;
+  }
+
+  auto setRepeat() {
+    setRepeat(true);
+  }
+
+  auto clearRepeat() {
+    setRepeat(false);
+  }
+
+  auto reset() {
+    _elapsed = Duration::zero();
   }
 };
 } // namespace libyunpa
