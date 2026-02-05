@@ -77,15 +77,15 @@ public:
 
 export class Timer {
 private:
-  Duration              _elapsed = Duration::zero();
-  Duration              _interval;
-  std::function<void()> _callback;
-  bool                  _repeat;
+  Duration                    _elapsed = Duration::zero();
+  Duration                    _interval;
+  std::function<void(Timer&)> _callback;
+  bool                        _repeat;
 
 public:
-  Timer(Duration                 interval,
-    const std::function<void()>& callback,
-    bool                         repeats = false) :
+  Timer(Duration                       interval,
+    const std::function<void(Timer&)>& callback,
+    bool                               repeats = false) :
       _interval(interval), _callback(callback), _repeat(repeats) {}
 
   auto update(const Duration& elapsed) {
@@ -97,20 +97,8 @@ public:
       if (_repeat) {
         _elapsed = Duration::zero();
       }
-      _callback();
+      _callback(*this);
     }
-  }
-
-  auto setRepeat(bool repeat) {
-    _repeat = repeat;
-  }
-
-  auto setRepeat() {
-    setRepeat(true);
-  }
-
-  auto clearRepeat() {
-    setRepeat(false);
   }
 
   auto reset() {
