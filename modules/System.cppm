@@ -20,7 +20,37 @@ struct Point2 {
   T y;
 };
 
-export using Point2ui = Point2<unsigned int>;
+export template <typename T>
+  requires std::integral<T>
+Point2<T> operator+(const Point2<T>& lhs, const Point2<T>& rhs) {
+  return Point2<T>{.x = lhs.x + rhs.x, .y = lhs.y + rhs.y};
+}
+
+export template <typename T>
+  requires std::integral<T>
+Point2<T> operator-(const Point2<T>& lhs, const Point2<T>& rhs) {
+  return Point2<T>{.x = lhs.x - rhs.x, .y = lhs.y - rhs.y};
+}
+
+export template <typename T, typename U>
+  requires std::integral<T> and (std::integral<U> or std::floating_point<U>)
+Point2<T> operator*(Point2<T> point, U scalar) {
+  return Point2<T>{.x = point.x * scalar, .y = point.y * scalar};
+}
+
+export template <typename T, typename U>
+  requires std::integral<T> and (std::integral<U> or std::floating_point<U>)
+Point2<T> operator/(Point2<T> point, U scalar) {
+  return Point2<T>{.x = point.x / scalar, .y = point.y / scalar};
+}
+
+export template <typename T>
+  requires std::integral<T>
+Point2<T> operator==(const Point2<T>& lhs, const Point2<T>& rhs) {
+  return lhs.x == rhs.x and lhs.y == rhs.y;
+}
+
+export using Point2i = Point2<int>;
 
 export template <typename T>
   requires std::integral<T>
