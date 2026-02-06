@@ -7,6 +7,7 @@ target_sources(
     "Console.cppm"
     "Engine.cppm"
     "Graphics.cppm"
+    "Mapping.cppm"
     "System.cppm"
     "Utilities.cppm"
 )
