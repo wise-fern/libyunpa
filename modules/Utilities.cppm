@@ -4,7 +4,7 @@ export module libyunpa.Utilities;
 export import libyunpa.Console;
 export import libyunpa.Graphics;
 export import libyunpa.System;
-import std;
+export import std;
 
 namespace libyunpa {
 #pragma region Menu

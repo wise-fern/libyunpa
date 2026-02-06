@@ -2,7 +2,7 @@ module;
 
 export module libyunpa.Graphics;
 export import ftxui;
-import std;
+export import std;
 
 namespace libyunpa {
 export struct TextOptions {

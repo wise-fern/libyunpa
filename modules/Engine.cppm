@@ -4,7 +4,7 @@ export module libyunpa.Engine;
 export import libyunpa.Console;
 export import libyunpa.System;
 export import ftxui;
-import std;
+export import std;
 
 namespace libyunpa {
 export class Scene;

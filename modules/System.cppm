@@ -1,7 +1,7 @@
 module;
 
 export module libyunpa.System;
-import std;
+export import std;
 
 namespace libyunpa {
 export using Duration = std::chrono::duration<long double, std::milli>;
@@ -19,6 +19,8 @@ struct Point2 {
   T x;
   T y;
 };
+
+export using Point2ui = Point2<unsigned int>;
 
 export template <typename T>
   requires std::integral<T>

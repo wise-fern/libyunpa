@@ -5,7 +5,7 @@ module;
 #include <windows.h>
 #endif
 export module libyunpa.Console;
-import std;
+export import std;
 
 namespace libyunpa {
 export enum class Keys : std::int8_t;

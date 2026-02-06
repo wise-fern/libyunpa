@@ -6,5 +6,3 @@ export import libyunpa.Engine;
 export import libyunpa.Graphics;
 export import libyunpa.System;
 export import libyunpa.Utilities;
-
-export import ftxui;
