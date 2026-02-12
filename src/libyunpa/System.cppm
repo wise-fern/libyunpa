@@ -1,7 +1,7 @@
 module;
 
 export module libyunpa.System;
-export import std;
+import std;
 
 namespace libyunpa {
 export template <typename T>
