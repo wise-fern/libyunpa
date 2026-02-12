@@ -19,5 +19,5 @@ target_sources(
     "src/libyunpa/_libyunpa.cppm"
     "src/libyunpa/System.cppm"
 )
-
+enable_testing()
 add_subdirectory("tests")
