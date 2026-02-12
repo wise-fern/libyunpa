@@ -1,1 +1,3 @@
-auto Point2_Equality(int /*argc*/, char * /*argv*/[]) -> int { return 0; }
+auto Point2_Equality(int /*argc*/, char* /*argv*/[]) -> int {
+  return 0;
+}
