@@ -59,7 +59,7 @@ TEST_P(Point2Tests, Division) {
 }
 
 namespace {
-auto rng = std::mt19937(0);
+  auto rng = std::mt19937(0);
 }
 
 INSTANTIATE_TEST_SUITE_P(System,
