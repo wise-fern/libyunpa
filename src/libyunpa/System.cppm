@@ -35,7 +35,12 @@ constexpr auto operator-(Point2<T> lhs, Point2<T> rhs) {
   return Point2<T>{lhs.x - rhs.x, lhs.y - rhs.y};
 }
 
+export template <typename T>
+  requires std::integral<T>
+constexpr auto operator*(Point2<T> lhs, Point2<T> rhs) {
+  return Point2<T>{lhs.x * rhs.x, lhs.y * rhs.y};
+}
+
 } // namespace libyunpa
 
 module :private;
-
