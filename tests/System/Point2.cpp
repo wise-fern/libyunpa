@@ -1,17 +1,55 @@
+#include <gtest/gtest.h>
+#include <random>
+
 import libyunpa;
 
-#include <gtest/gtest.h>
+using namespace libyunpa;
 
-TEST(Point2, Equality) {
-  using namespace libyunpa;
-  constexpr auto lhs = Point2{.x = 32, .y = 49};
+class Point2Test
+    : public testing::TestWithParam<std::tuple<int, int, int, int>> {
+protected:
+  Point2<int> lhs{};
+  Point2<int> rhs{};
+
+public:
+  Point2Test() {
+    auto [lhsx, lhsy, rhsx, rhsy] = GetParam();
+
+    lhs = Point2{.x = lhsx, .y = lhsy};
+    rhs = Point2{.x = rhsx, .y = rhsy};
+  }
+};
+
+TEST_P(Point2Test, Equality) {
   EXPECT_EQ(lhs, lhs);
+  EXPECT_EQ(rhs, rhs);
+  EXPECT_NE(lhs, rhs);
 }
 
-TEST(Point2, Addition) {
-  using namespace libyunpa;
-  constexpr auto lhs = Point2{.x = 32, .y = 85};
-  constexpr auto rhs = Point2{.x = 52, .y = 19};
-  constexpr auto sum = Point2{.x = 84, .y = 104};
-  EXPECT_EQ((lhs + rhs), sum);
+TEST_P(Point2Test, Addition) {
+  auto result = Point2{.x = lhs.x + rhs.x, .y = lhs.y + rhs.y};
+  EXPECT_EQ(lhs + rhs, result);
 }
+
+TEST_P(Point2Test, Negation) {
+  auto result = Point2{.x = -lhs.x, .y = -lhs.y};
+  EXPECT_EQ(-lhs, result);
+  result = Point2{.x = -rhs.x, .y = -rhs.y};
+  EXPECT_EQ(-rhs, result);
+}
+
+TEST_P(Point2Test, Subtraction) {
+  auto result = Point2{.x = lhs.x - rhs.x, .y = lhs.y - rhs.y};
+  EXPECT_EQ(lhs - rhs, result);
+}
+
+namespace {
+auto rng = std::mt19937(0);
+}
+
+INSTANTIATE_TEST_SUITE_P(Coordinates,
+                         Point2Test,
+                         testing::Values(std::tuple{rng(), rng(), rng(), rng()},
+                                         std::tuple{rng(), rng(), rng(), rng()},
+                                         std::tuple{
+                                             rng(), rng(), rng(), rng()}));
