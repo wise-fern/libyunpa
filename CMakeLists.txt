@@ -17,6 +17,7 @@ target_sources(
     FILE_SET CXX_MODULES
     FILES
     "src/libyunpa/_libyunpa.cppm"
+    "src/libyunpa/Graphics.cppm"
     "src/libyunpa/System.cppm"
 )
 enable_testing()

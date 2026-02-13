@@ -15,6 +15,7 @@ target_sources(
   ${test_runner}
   PRIVATE
   "System/Point2.cpp"
+  "Graphics/Text.cpp"
 )
 target_compile_features(
   ${test_runner}
