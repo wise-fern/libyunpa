@@ -27,39 +27,51 @@ TEST_P(Point2Tests, Equality) {
 }
 
 TEST_P(Point2Tests, Addition) {
-  auto result = Point2{.x = lhs.x + rhs.x, .y = lhs.y + rhs.y};
+  auto [lhsx, lhsy, rhsx, rhsy] = GetParam();
+
+  auto result = Point2{.x = lhsx + rhsx, .y = lhsy + rhsy};
   EXPECT_EQ(lhs + rhs, result);
 }
 
 TEST_P(Point2Tests, Negation) {
-  auto result = Point2{.x = -lhs.x, .y = -lhs.y};
+  auto [lhsx, lhsy, rhsx, rhsy] = GetParam();
+
+  auto result = Point2{.x = -lhsx, .y = -lhsy};
   EXPECT_EQ(-lhs, result);
-  result = Point2{.x = -rhs.x, .y = -rhs.y};
+  result = Point2{.x = -rhsx, .y = -rhsy};
   EXPECT_EQ(-rhs, result);
 }
 
 TEST_P(Point2Tests, Subtraction) {
-  auto result = Point2{.x = lhs.x - rhs.x, .y = lhs.y - rhs.y};
+  auto [lhsx, lhsy, rhsx, rhsy] = GetParam();
+
+  auto result = Point2{.x = lhsx - rhsx, .y = lhsy - rhsy};
   EXPECT_EQ(lhs - rhs, result);
 }
 
 TEST_P(Point2Tests, Multiplication) {
-  auto result = Point2{.x = lhs.x * rhs.x, .y = lhs.y * rhs.y};
+  auto [lhsx, lhsy, rhsx, rhsy] = GetParam();
+
+  auto result = Point2{.x = lhsx * rhsx, .y = lhsy * rhsy};
   EXPECT_EQ(lhs * rhs, result);
 }
 
 TEST_P(Point2Tests, ScalarMultiplaction) {
-  auto result = Point2{.x = lhs.x * rhs.x, .y = lhs.y * rhs.x};
+  auto [lhsx, lhsy, rhsx, rhsy] = GetParam();
+
+  auto result = Point2{.x = lhsx * rhsx, .y = lhsy * rhsx};
   EXPECT_EQ(lhs * rhs.x, result);
 }
 
 TEST_P(Point2Tests, Division) {
-  auto result = Point2{.x = lhs.x / rhs.x, .y = lhs.y / rhs.y};
+  auto [lhsx, lhsy, rhsx, rhsy] = GetParam();
+
+  auto result = Point2{.x = lhsx / rhsx, .y = lhsy / rhsy};
   EXPECT_EQ(lhs / rhs, result);
 }
 
 namespace {
-  auto rng = std::mt19937(0);
+auto rng = std::mt19937(0);
 }
 
 INSTANTIATE_TEST_SUITE_P(System,
