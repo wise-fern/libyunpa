@@ -5,12 +5,26 @@ project(
 )
 
 add_library(${PROJECT_NAME})
+
 set_target_properties(
     ${PROJECT_NAME}
     PROPERTIES
     CXX_MODULE_STD YES
     CXX_STANDARD 23
 )
+if(CMAKE_BUILD_TYPE STREQUAL Debug)
+    target_compile_options(
+        ${PROJECT_NAME}
+        PRIVATE
+        -ggdb
+    )
+else()
+    target_compile_options(
+        ${PROJECT_NAME}
+        PRIVATE
+        -O3 -DNDEBUG
+    )
+endif()
 target_sources(
     ${PROJECT_NAME}
     PUBLIC
@@ -19,6 +33,7 @@ target_sources(
     "src/libyunpa/_libyunpa.cppm"
     "src/libyunpa/Graphics.cppm"
     "src/libyunpa/System.cppm"
+    PRIVATE
 )
 enable_testing()
 add_subdirectory("tests")
