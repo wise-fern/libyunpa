@@ -20,7 +20,7 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
     target_compile_options(
         ${PROJECT_NAME}
         PRIVATE
-        -ggdb
+        -ggdb -pedantic-errors
     )
 else()
     target_compile_options(
