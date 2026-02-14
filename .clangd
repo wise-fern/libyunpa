@@ -1,0 +1,16 @@
+Diagnostics:
+  ClangTidy:
+    Add:
+      - 'bugprone-*'
+      - 'cppcoreguidelines-*'
+      - 'modernize-*'
+      - 'misc-*'
+      - 'readability-*'
+      - 'performance-*'
+      - 'portability-*'
+    Remove:
+      - 'misc-use-internal-linkage'
+      - '*-non-private-member-variables-in-classes'
+      - '*-avoid-c-arrays'
+    CheckOptions:
+      cppcoreguidelines-avoid-non-const-global-variables.AllowInternalLinkage: true
