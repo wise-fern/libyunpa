@@ -172,7 +172,7 @@ auto Text::to_string() const -> std::string {
   if (_bold) {
     result = std::format("\033[1m{}", result);
   }
-  return std::format("\033[{};{}H{}\033[0m", position.y, position.x, result);
+  return std::format("{}\033[0m", result);
 }
 
 auto Text::getText() const {
