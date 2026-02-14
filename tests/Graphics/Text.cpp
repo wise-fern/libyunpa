@@ -2,23 +2,23 @@
 
 import libyunpa;
 
-class TextTests : public testing::TestWithParam<std::string> {
+class Text : public testing::TestWithParam<std::string> {
 protected:
   libyunpa::Text _text;
 
-  TextTests() : _text(GetParam()) {}
+  Text() : _text(GetParam()) {}
 };
 
-TEST_P(TextTests, GetText) {
+TEST_P(Text, GetText) {
   EXPECT_EQ(_text.getText(), GetParam());
 }
 
-TEST_P(TextTests, ToString) {
+TEST_P(Text, ToString) {
   auto result = std::format("{}\x1B[0m", GetParam());
   EXPECT_EQ(_text.to_string(), result);
 }
 
-TEST_P(TextTests, Bold) {
+TEST_P(Text, Bold) {
   EXPECT_EQ(false, _text.getBold());
   _text.setBold();
   EXPECT_EQ(true, _text.getBold());
@@ -26,7 +26,7 @@ TEST_P(TextTests, Bold) {
   EXPECT_EQ(result, _text.to_string());
 }
 
-TEST_P(TextTests, Dim) {
+TEST_P(Text, Dim) {
   EXPECT_EQ(false, _text.getDim());
   _text.setDim();
   EXPECT_EQ(true, _text.getDim());
@@ -34,7 +34,7 @@ TEST_P(TextTests, Dim) {
   EXPECT_EQ(result, _text.to_string());
 }
 
-TEST_P(TextTests, Italic) {
+TEST_P(Text, Italic) {
   EXPECT_EQ(false, _text.getItalic());
   _text.setItalic();
   EXPECT_EQ(true, _text.getItalic());
@@ -42,7 +42,7 @@ TEST_P(TextTests, Italic) {
   EXPECT_EQ(result, _text.to_string());
 }
 
-TEST_P(TextTests, Underline) {
+TEST_P(Text, Underline) {
   EXPECT_EQ(false, _text.getUnderline());
   _text.setUnderline();
   EXPECT_EQ(true, _text.getUnderline());
@@ -50,7 +50,7 @@ TEST_P(TextTests, Underline) {
   EXPECT_EQ(result, _text.to_string());
 }
 
-TEST_P(TextTests, DoubleUnderline) {
+TEST_P(Text, DoubleUnderline) {
   EXPECT_EQ(false, _text.getDoubleUnderline());
   _text.setDoubleUnderline();
   EXPECT_EQ(true, _text.getDoubleUnderline());
@@ -58,7 +58,7 @@ TEST_P(TextTests, DoubleUnderline) {
   EXPECT_EQ(result, _text.to_string());
 }
 
-TEST_P(TextTests, Blink) {
+TEST_P(Text, Blink) {
   EXPECT_EQ(false, _text.getBlink());
   _text.setBlink();
   EXPECT_EQ(true, _text.getBlink());
@@ -66,7 +66,7 @@ TEST_P(TextTests, Blink) {
   EXPECT_EQ(result, _text.to_string());
 }
 
-TEST_P(TextTests, Inverse) {
+TEST_P(Text, Inverse) {
   EXPECT_EQ(false, _text.getInverse());
   _text.setInverse();
   EXPECT_EQ(true, _text.getInverse());
@@ -74,7 +74,7 @@ TEST_P(TextTests, Inverse) {
   EXPECT_EQ(result, _text.to_string());
 }
 
-TEST_P(TextTests, Invisible) {
+TEST_P(Text, Invisible) {
   EXPECT_EQ(false, _text.getInvisible());
   _text.setInvisible();
   EXPECT_EQ(true, _text.getInvisible());
@@ -82,7 +82,7 @@ TEST_P(TextTests, Invisible) {
   EXPECT_EQ(result, _text.to_string());
 }
 
-TEST_P(TextTests, Struck) {
+TEST_P(Text, Struck) {
   EXPECT_EQ(false, _text.getStruck());
   _text.setStruck();
   EXPECT_EQ(true, _text.getStruck());
@@ -91,7 +91,7 @@ TEST_P(TextTests, Struck) {
 }
 
 INSTANTIATE_TEST_SUITE_P(Graphics,
-                         TextTests,
+                         Text,
                          testing::Values("test",
                                          "A string for you",
                                          "some more Text"));
