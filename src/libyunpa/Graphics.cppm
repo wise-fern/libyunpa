@@ -172,6 +172,29 @@ auto Text::to_string() const -> std::string {
   if (_bold) {
     result = std::format("\033[1m{}", result);
   }
+  if (_dim) {
+    result = std::format("\x1b[2m{}", result);
+  }
+  if (_italic) {
+    result = std::format("\x1b[3m{}", result);
+  }
+  if (_underline) {
+    result = std::format("\x1b[4m{}", result);
+  } else if (_doubleUnderline) {
+    result = std::format("\x1b[21m{}", result);
+  }
+  if (_blink) {
+    result = std::format("\x1b[5m{}", result);
+  }
+  if (_inverse) {
+    result = std::format("\x1b[7m{}", result);
+  }
+  if (_invisible) {
+    result = std::format("\x1b[8m{}", result);
+  }
+  if (_struck) {
+    result = std::format("\x1b[9m{}", result);
+  }
   return std::format("{}\033[0m", result);
 }
 
