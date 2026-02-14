@@ -11,6 +11,10 @@ export struct Color {
   std::uint8_t blue;
 };
 
+export constexpr auto operator==(const Color& lhs, const Color& rhs) -> bool {
+  return lhs.red == rhs.red and lhs.green == rhs.green and lhs.blue == rhs.blue;
+}
+
 constexpr auto UINT8T_MAX = 255;
 
 export struct DrawableOptions {
