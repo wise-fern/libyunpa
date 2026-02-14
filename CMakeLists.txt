@@ -22,6 +22,11 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
         PRIVATE
         -ggdb -pedantic-errors
     )
+    target_link_options(
+        ${PROJECT_NAME}
+        PRIVATE
+        
+    )
 else()
     target_compile_options(
         ${PROJECT_NAME}
