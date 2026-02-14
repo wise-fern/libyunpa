@@ -14,7 +14,7 @@ TEST_P(TextTests, GetText) {
 }
 
 TEST_P(TextTests, ToString) {
-  auto result = std::format("{}\e[0m", GetParam());
+  auto result = std::format("{}\x1B[0m", GetParam());
   EXPECT_EQ(_text.to_string(), result);
 }
 
@@ -26,11 +26,19 @@ TEST_P(TextTests, Bold) {
   EXPECT_EQ(result, _text.to_string());
 }
 
+TEST_P(TextTests, Dim) {
+  EXPECT_EQ(false, _text.getDim());
+  _text.setDim();
+  EXPECT_EQ(true, _text.getDim());
+  auto result = std::format("\x1b[2m{}\x1b[0m", GetParam());
+  EXPECT_EQ(result, _text.to_string());
+}
+
 TEST_P(TextTests, Italic) {
   EXPECT_EQ(false, _text.getItalic());
   _text.setItalic();
   EXPECT_EQ(true, _text.getItalic());
-  auto result = std::format("\x1b[2m{}\x1b[0m", GetParam());
+  auto result = std::format("\x1b[3m{}\x1b[0m", GetParam());
   EXPECT_EQ(result, _text.to_string());
 }
 
@@ -38,7 +46,7 @@ TEST_P(TextTests, Underline) {
   EXPECT_EQ(false, _text.getUnderline());
   _text.setUnderline();
   EXPECT_EQ(true, _text.getUnderline());
-  auto result = std::format("\x1b[3m{}\x1b[0m", GetParam());
+  auto result = std::format("\x1b[4m{}\x1b[0m", GetParam());
   EXPECT_EQ(result, _text.to_string());
 }
 
@@ -54,7 +62,31 @@ TEST_P(TextTests, Blink) {
   EXPECT_EQ(false, _text.getBlink());
   _text.setBlink();
   EXPECT_EQ(true, _text.getBlink());
-  auto result = std::format("\x1b[5{}\x1b[0m", GetParam());
+  auto result = std::format("\x1b[5m{}\x1b[0m", GetParam());
+  EXPECT_EQ(result, _text.to_string());
+}
+
+TEST_P(TextTests, Inverse) {
+  EXPECT_EQ(false, _text.getInverse());
+  _text.setInverse();
+  EXPECT_EQ(true, _text.getInverse());
+  auto result = std::format("\x1b[7m{}\x1b[0m", GetParam());
+  EXPECT_EQ(result, _text.to_string());
+}
+
+TEST_P(TextTests, Invisible) {
+  EXPECT_EQ(false, _text.getInvisible());
+  _text.setInvisible();
+  EXPECT_EQ(true, _text.getInvisible());
+  auto result = std::format("\x1b[8m{}\x1b[0m", GetParam());
+  EXPECT_EQ(result, _text.to_string());
+}
+
+TEST_P(TextTests, Struck) {
+  EXPECT_EQ(false, _text.getStruck());
+  _text.setStruck();
+  EXPECT_EQ(true, _text.getStruck());
+  auto result = std::format("\x1b[9m{}\x1b[0m", GetParam());
   EXPECT_EQ(result, _text.to_string());
 }
 
