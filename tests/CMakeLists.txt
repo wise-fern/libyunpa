@@ -22,14 +22,14 @@ target_compile_features(
   PRIVATE
   cxx_std_23
 )
-target_compile_options(
-  ${test_runner}
-  PUBLIC
-  -coverage
-)
-target_link_options(
-  ${test_runner}
-  PUBLIC
-  -coverage
-)
+# target_compile_options(
+#   ${test_runner}
+#   PUBLIC
+#   -coverage
+# )
+# target_link_options(
+#   ${test_runner}
+#   PUBLIC
+#   -coverage
+# )
 gtest_discover_tests(${test_runner})
