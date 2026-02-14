@@ -62,16 +62,41 @@ export class Text : public Drawable {
 private:
   std::string _text;
   bool        _bold;
+  bool        _dim;
+  bool        _italic;
+  bool        _underline;
+  bool        _doubleUnderline;
+  bool        _blink;
+  bool        _inverse;
+  bool        _invisible;
+  bool        _struck;
 
 public:
   Text(std::string text);
   Text(std::string text, const TextOptions& options);
 
-  [[nodiscard]] auto getBold() const;
-  auto               setBold(bool bold);
   [[nodiscard]] auto getText() const;
   auto               setText(const std::string& text);
   [[nodiscard]] auto to_string() const -> std::string override;
+
+  [[nodiscard]] auto getBold() const;
+  auto               setBold(bool bold = true);
+  [[nodiscard]] auto getDim() const;
+  auto               setDim(bool dim = true);
+  [[nodiscard]] auto getItalic() const;
+  auto               setItalic(bool italic = true);
+  [[nodiscard]] auto getUnderline() const;
+  auto               setUnderline(bool underline = true);
+  [[nodiscard]] auto getDoubleUnderline() const;
+  auto               setDoubleUnderline(bool doubleUnderline = true);
+  [[nodiscard]] auto getBlink() const;
+  auto               setBlink(bool blink = true);
+  [[nodiscard]] auto getInverse() const;
+  auto               setInverse(bool inverse = true);
+  [[nodiscard]] auto getInvisible() const;
+  auto               setInvisible(bool invisible = true);
+  [[nodiscard]] auto getStruck() const;
+  auto               setStruck(bool struck = true);
 };
 } // namespace libyunpa
 
@@ -121,7 +146,17 @@ auto Drawable::draw() const {
 Text::Text(std::string text) : Text(std::move(text), TextOptions{}) {}
 
 Text::Text(std::string text, const TextOptions& options) :
-    Drawable(options), _text(std::move(text)), _bold(options.bold) {}
+    Drawable(options),
+    _text(std::move(text)),
+    _bold(options.bold),
+    _dim(options.dim),
+    _italic(options.italic),
+    _underline(options.underline),
+    _doubleUnderline(options.doubleUnderline),
+    _blink(options.blink),
+    _inverse(options.inverse),
+    _invisible(options.invisible),
+    _struck(options.struck) {}
 
 auto Text::getBold() const {
   return _bold;
@@ -146,5 +181,69 @@ auto Text::getText() const {
 
 auto Text::setText(const std::string& text) {
   _text = text;
+}
+
+auto Text::getDim() const {
+  return _dim;
+}
+
+auto Text::setDim(bool dim) {
+  _dim = dim;
+}
+
+auto Text::getItalic() const {
+  return _italic;
+}
+
+auto Text::setItalic(bool italic) {
+  _italic = italic;
+}
+
+auto Text::getUnderline() const {
+  return _underline;
+}
+
+auto Text::setUnderline(bool underline) {
+  _underline = underline;
+}
+
+auto Text::getDoubleUnderline() const {
+  return _doubleUnderline;
+}
+
+auto Text::setDoubleUnderline(bool doubleUnderline) {
+  _doubleUnderline = doubleUnderline;
+}
+
+auto Text::getBlink() const {
+  return _blink;
+}
+
+auto Text::setBlink(bool blink) {
+  _blink = blink;
+}
+
+auto Text::getInverse() const {
+  return _inverse;
+}
+
+auto Text::setInverse(bool inverse) {
+  _inverse = inverse;
+}
+
+auto Text::getInvisible() const {
+  return _invisible;
+}
+
+auto Text::setInvisible(bool invisible) {
+  _invisible = invisible;
+}
+
+auto Text::getStruck() const {
+  return _struck;
+}
+
+auto Text::setStruck(bool struck) {
+  _struck = struck;
 }
 } // namespace libyunpa
