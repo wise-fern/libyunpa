@@ -8,3 +8,10 @@ TEST(Clock, Update) {
   auto            updatedTime  = clock.update();
   EXPECT_GE(updatedTime.totalTime, originalTime.totalTime);
 }
+
+TEST(Clock, Rest) {
+  libyunpa::Clock clock{};
+  clock.update();
+  auto originalTime = clock.update();
+  auto resetTime    = clock.reset();
+}
