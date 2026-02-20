@@ -4,6 +4,7 @@ set_target_properties(
   PROPERTIES
   PREFIX ""
   CXX_STANDARD 23
+  CXX_STANDARD_REQUIRED TRUE
   CXX_EXTENSIONS FALSE
 )
 set(
