@@ -5,6 +5,11 @@
 		}
 	],
 	"settings": {
-		"editor.formatOnSave": true
+		"editor.formatOnSave": true,
+		"testing.coverageToolbarEnabled": true,
+		"cmake.postRunCoverageTarget": "libyunpa_coverage",
+		"cmake.coverageInfoFiles": [
+			"${workspaceFolder}/build/libyunpa_coverage.info"
+		]
 	}
 }
