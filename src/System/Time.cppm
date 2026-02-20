@@ -1,6 +1,6 @@
 module;
 
-export module libyunpa.System:Time;
+export module libyunpa:Time;
 export import std;
 
 using namespace std::chrono;

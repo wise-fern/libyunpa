@@ -1,3 +1,3 @@
 module;
 
-export module libyunpa.Engine:Scene;
+export module libyunpa:Scene;

@@ -12,9 +12,8 @@ set_target_properties(
 set(
   RELATIVE_SOURCES
   "libyunpa.cppm"
-  "Engine.cppm"
   "Engine/Scene.cppm"
-  "System.cppm"
+  "System/Events.cppm"
   "System/Time.cppm"
 )
 foreach(source_file IN LISTS RELATIVE_SOURCES)
