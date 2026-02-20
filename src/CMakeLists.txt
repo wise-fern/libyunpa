@@ -9,6 +9,13 @@ set_target_properties(
   CXX_EXTENSIONS FALSE
   CXX_MODULE_STD TRUE
 )
+if(WIN32)
+  target_compile_definitions(
+    ${PROJECT_NAME}
+    PRIVATE
+    WIN32
+  )
+endif()
 set(
   RELATIVE_SOURCES
   "libyunpa.cppm"
