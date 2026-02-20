@@ -1,0 +1,22 @@
+{
+    "version": 7,
+    "cmakeMinimumRequired": {
+        "major": 4
+    },
+    "configurePresets": [
+        {
+            "name": "debug",
+            "displayName": "Debug",
+            "environment": {
+                "CXX": "clang++",
+                "CC": "clang"
+            },
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true
+            },
+            "generator": "Ninja"
+        }
+    ]
+}

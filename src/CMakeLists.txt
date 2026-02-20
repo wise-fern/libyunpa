@@ -1,0 +1,23 @@
+add_library(${PROJECT_NAME})
+set_target_properties(
+  ${PROJECT_NAME}
+  PROPERTIES
+  PREFIX ""
+  CXX_STANDARD 23
+  CXX_EXTENSIONS FALSE
+)
+set(
+  RELATIVE_SOURCES
+  "Engine/Scene.cppm"
+)
+foreach(source_file IN LISTS RELATIVE_SOURCES)
+  list(APPEND ABSOLUTE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/${source_file}")
+endforeach()
+set(ABSOLUTE_SOURCES PARENT_SCOPE)
+target_sources(
+  ${PROJECT_NAME}
+  PUBLIC
+  FILE_SET CXX_MODULES
+  FILES
+  ${ABSOLUTE_SOURCES}
+)
