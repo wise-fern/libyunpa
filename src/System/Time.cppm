@@ -20,7 +20,7 @@ private:
   TimePoint _frameStart{steady_clock::now()};
 
 public:
-  const auto& update() {
+  auto update() {
     auto now             = steady_clock::now();
     _gameTime.lastFrame  = now - _frameStart;
     _gameTime.totalTime += _gameTime.lastFrame;
@@ -36,6 +36,7 @@ public:
     _gameTime.lastFrame = Duration::zero();
     _gameTime.totalTime = Duration::zero();
     _frameStart         = steady_clock::now();
+    return _gameTime;
   }
 };
 } // namespace libyunpa
