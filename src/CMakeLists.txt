@@ -6,10 +6,15 @@ set_target_properties(
   CXX_STANDARD 23
   CXX_STANDARD_REQUIRED TRUE
   CXX_EXTENSIONS FALSE
+  CXX_MODULE_STD TRUE
 )
 set(
   RELATIVE_SOURCES
+  "libyunpa.cppm"
+  "Engine.cppm"
   "Engine/Scene.cppm"
+  "System.cppm"
+  "System/Time.cppm"
 )
 foreach(source_file IN LISTS RELATIVE_SOURCES)
   list(APPEND ABSOLUTE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/${source_file}")
