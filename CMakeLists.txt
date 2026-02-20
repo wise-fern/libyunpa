@@ -32,6 +32,7 @@ endif()
 
 set(FTXUI_BUILD_MODULES TRUE)
 add_subdirectory("extern/ftxui")
+add_subdirectory("extern/pegtl")
 add_subdirectory("src")
 if(PROJECT_IS_TOP_LEVEL)
   include(CTest)
