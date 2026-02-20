@@ -23,7 +23,7 @@ include(GoogleTest)
 gtest_discover_tests(${TEST_RUNNER})
 find_program(LLVM_PROFDATA_EXECUTABLE llvm-profdata)
 find_program(LLVM_COV_EXECUTABLE llvm-cov)
-if(LLVM_PROFDATA_EXECUTABLE AND LLVM_COV_EXECUTABLE)
+if(LLVM_PROFDATA_EXECUTABLE AND LLVM_COV_EXECUTABLE AND NOT MSVC)
   message(STATUS "Found llvm-cov and llvm-profdata. Enabling coverage reports.")
   target_link_options(
     ${TEST_RUNNER}

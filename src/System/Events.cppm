@@ -1,5 +1,7 @@
 module;
-
+#ifdef WIN32
+#include <conio.h>
+#endif
 export module libyunpa:Events;
 export import std;
 
@@ -102,6 +104,17 @@ export struct KeyEvent {
 } // namespace Events
 
 export using Event = std::variant<std::monostate, Events::KeyEvent>;
-// NOLINTEND(misc-confusable-identifiers)
 
+// NOLINTEND(misc-confusable-identifiers)
+class EventManager {
+public:
+#pragma region WIN32
+#ifdef WIN32
+
+  auto update() {
+    if (_kbhit() not_eq 0) {}
+  }
+
+#endif
+};
 } // namespace libyunpa

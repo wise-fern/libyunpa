@@ -14,6 +14,7 @@ find_program(CCACHE_EXECUTABLE ccache)
 if(CCACHE_EXECUTABLE)
   message(STATUS "Found ccache")
   set(CMAKE_CXX_COMPILER_LAUNCHER ${CCACHE_EXECUTABLE} "sloppiness=modules")
+  set(CMAKE_C_COMPILER_LAUNCHER ${CCACHE_EXECUTABLE})
 endif()
 
 # Make sure submodules are initialized and updated
