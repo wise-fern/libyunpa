@@ -28,3 +28,8 @@ target_sources(
   FILES
   ${ABSOLUTE_SOURCES}
 )
+target_link_libraries(
+  ${PROJECT_NAME}
+  PUBLIC
+  ftxui::modules
+)
