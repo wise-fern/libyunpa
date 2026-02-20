@@ -7,14 +7,12 @@
         {
             "name": "debug",
             "displayName": "Debug",
-            "environment": {
-                "CXX": "clang++",
-                "CC": "clang"
-            },
             "binaryDir": "${sourceDir}/build",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug",
-                "CMAKE_EXPORT_COMPILE_COMMANDS": true
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true,
+                "CMAKE_C_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++"
             },
             "generator": "Ninja"
         }
