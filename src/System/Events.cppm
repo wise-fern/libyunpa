@@ -1,10 +1,54 @@
 module;
 #ifdef WIN32
 #include <conio.h>
+#else
+#include <cstdio>
+#include <sys/select.h>
+#include <termios.h>
+#include <unistd.h>
 #endif
+#include <tao/pegtl.hpp>
 export module libyunpa:Events;
+export import :Utilities;
 export import std;
+#ifdef WIN32
+int kbhit() {
+  return _kbhit();
+}
 
+int getch() {
+  return _getch();
+}
+#else
+// NOLINTNEXTLINE
+int kbhit() {
+  struct timeval tval = {.tv_sec = 0, .tv_usec = 0};
+  fd_set         readfds;
+
+  FD_ZERO(&readfds);
+  FD_SET(STDIN_FILENO, &readfds);
+
+  return static_cast<int>(select(1, &readfds, nullptr, nullptr, &tval) > 0);
+}
+
+// NOLINTNEXTLINE
+int getch() {
+  termios oldt{};
+  termios newt{};
+  int     chr{};
+
+  tcgetattr(STDIN_FILENO, &oldt);
+  newt = oldt;
+
+  newt.c_lflag and_eq static_cast<tcflag_t>(compl(ICANON bitor ECHO));
+  tcsetattr(STDIN_FILENO, TCSANOW, &newt);
+
+  chr = getchar();
+  tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
+
+  return chr;
+}
+#endif
 using namespace std;
 
 namespace libyunpa {
@@ -83,10 +127,10 @@ export enum Keys : uint8_t {
   KEY_PAGE_DOWN
 };
 export enum class KeyMods : std::uint8_t {
-  NONE    = 0 << 0,
-  SHIFT   = 1 << 0,
-  ALT     = 1 << 1,
-  CTRL    = 1 << 2,
+  NONE = 0 << 0,
+  SHIFT = 1 << 0,
+  ALT = 1 << 1,
+  CTRL = 1 << 2,
   CONTROL = CTRL
 };
 
@@ -105,16 +149,70 @@ export struct KeyEvent {
 
 export using Event = std::variant<std::monostate, Events::KeyEvent>;
 
+namespace Grammar {
+using namespace tao::pegtl;
+
+struct ESC : one<'\x1b'> {};
+
+struct CSI : seq<ESC, one<'['>> {};
+
+template <char delim = ';'>
+struct DigitPlusTerm : seq<tao::pegtl::plus<digit>, one<delim>> {};
+
+struct Win32InputString :
+    seq<CSI,
+        DigitPlusTerm<>,
+        DigitPlusTerm<>,
+        DigitPlusTerm<>,
+        DigitPlusTerm<>,
+        DigitPlusTerm<>,
+        DigitPlusTerm<'_'>> {};
+
+struct Language : sor<Win32InputString> {};
+} // namespace Grammar
+
+template <typename Rule> struct Action : tao::pegtl::nothing<Rule> {
+  template <typename ActionInput>
+  static void apply(const ActionInput& /*input*/,
+                    std::queue<Event>& /*eventQueue*/) {}
+};
+
+template <> struct Action<Grammar::Win32InputString> {
+  template <typename ActionInput>
+  static void apply(const ActionInput& input,
+                    std::queue<Event>& /*eventQueue*/) {
+    std::string inputString = input.string();
+    inputString = inputString.substr(2);
+    [[maybe_unused]] auto vKeyCode = ConvertAndTrim(inputString);
+    [[maybe_unused]] auto vScanCode = ConvertAndTrim(inputString);
+    [[maybe_unused]] auto unicodeChar = ConvertAndTrim(inputString);
+    [[maybe_unused]] auto isKeyDown = ConvertAndTrim(inputString) == 1;
+    [[maybe_unused]] auto controlKeyState = ConvertAndTrim(inputString);
+  }
+};
+
 // NOLINTEND(misc-confusable-identifiers)
 class EventManager {
+private:
+  std::queue<Event> _eventQueue;
+
 public:
-#pragma region WIN32
-#ifdef WIN32
-
   auto update() {
-    if (_kbhit() not_eq 0) {}
+    if (kbhit() != 0) {
+      std::string workingString;
+      while (kbhit() != 0) {
+        auto input = getch();
+        workingString += static_cast<char>(input);
+        auto parserInput = tao::pegtl::memory_input(workingString, "");
+        if (tao::pegtl::parse<Grammar::Language>(parserInput)) {
+          workingString.clear();
+        }
+      }
+      auto parserInput = tao::pegtl::memory_input(workingString, "");
+      if (tao::pegtl::parse<Grammar::Language>(parserInput, _eventQueue)) {
+        workingString.clear();
+      }
+    }
   }
-
-#endif
 };
 } // namespace libyunpa

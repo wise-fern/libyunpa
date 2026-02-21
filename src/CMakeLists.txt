@@ -9,6 +9,15 @@ set_target_properties(
   CXX_EXTENSIONS FALSE
   CXX_MODULE_STD TRUE
 )
+if(CMAKE_BUILD_TYPE STREQUAL Debug)
+  target_compile_options(
+    ${PROJECT_NAME}
+    PRIVATE
+    -Werror -Wall -pedantic-errors -Weffc++
+    -Wconversion -Wsign-conversion -ggdb
+    -gmodules -Wextra
+  )
+endif()
 if(WIN32)
   target_compile_definitions(
     ${PROJECT_NAME}
@@ -22,6 +31,7 @@ set(
   "Engine/Scene.cppm"
   "System/Events.cppm"
   "System/Time.cppm"
+  "System/Utilities.cppm"
 )
 foreach(source_file IN LISTS RELATIVE_SOURCES)
   list(APPEND ABSOLUTE_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/${source_file}")
@@ -38,4 +48,6 @@ target_link_libraries(
   ${PROJECT_NAME}
   PUBLIC
   ftxui::modules
+  PRIVATE
+  taocpp::pegtl
 )
