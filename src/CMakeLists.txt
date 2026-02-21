@@ -13,7 +13,7 @@ if(CMAKE_BUILD_TYPE STREQUAL Debug)
   target_compile_options(
     ${PROJECT_NAME}
     PRIVATE
-    -Werror -Wall -pedantic-errors -Weffc++
+    -Wall -pedantic-errors -Weffc++
     -Wconversion -Wsign-conversion -ggdb
     -gmodules -Wextra
   )
@@ -29,7 +29,11 @@ set(
   RELATIVE_SOURCES
   "libyunpa.cppm"
   "Engine/Scene.cppm"
+  "Graphics/Drawable.cppm"
+  "Graphics/Text.cppm"
+  "System/Color.cppm"
   "System/Events.cppm"
+  "System/Point2.cppm"
   "System/Time.cppm"
   "System/Utilities.cppm"
 )

@@ -11,15 +11,7 @@ module;
 export module libyunpa:Events;
 export import :Utilities;
 export import std;
-#ifdef WIN32
-int kbhit() {
-  return _kbhit();
-}
-
-int getch() {
-  return _getch();
-}
-#else
+#ifndef WIN32
 // NOLINTNEXTLINE
 int kbhit() {
   struct timeval tval = {.tv_sec = 0, .tv_usec = 0};
