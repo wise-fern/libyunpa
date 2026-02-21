@@ -1,0 +1,16 @@
+Diagnostics:
+  ClangTidy:
+    Add:
+      - 'bugprone-*'
+      - 'concurrency-*'
+      - 'cppcoreguidelines-*'
+      - 'misc-*'
+      - 'modernize-*'
+      - 'performance-*'
+      - 'portability-*'
+      - 'readability-*'
+    Remove:
+      - 'modernize-use-trailing-return-type'
+      - 'misc-use-internal-linkage'
+    CheckOptions:
+      misc-non-private-member-variables-in-classes.IgnoreClassesWithAllMemberVariablesBeingPublic: true
