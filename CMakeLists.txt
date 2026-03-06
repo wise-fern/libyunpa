@@ -22,7 +22,7 @@ target_compile_options(
           -Wconversion
           -Wdecls-in-multiple-modules
           -Weffc++
-          # -Werror
+          -Werror
           -Wextra
           -Wimplicit-fallthrough
           -Wloop-analysis
