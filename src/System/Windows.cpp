@@ -107,7 +107,26 @@ Keys convert_msoft_key_code(int keyCode) {
         return KEY_ARROW_DOWN;
     case VK_LEFT:
         return KEY_ARROW_LEFT;
-
+    case VK_NUMPAD0:
+        return KP_0;
+    case VK_NUMPAD1:
+        return KP_1;
+    case VK_NUMPAD2:
+        return KP_2;
+    case VK_NUMPAD3:
+        return KP_3;
+    case VK_NUMPAD4:
+        return KP_4;
+    case VK_NUMPAD5:
+        return KP_5;
+    case VK_NUMPAD6:
+        return KP_6;
+    case VK_NUMPAD7:
+        return KP_7;
+    case VK_NUMPAD8:
+        return KP_8;
+    case VK_NUMPAD9:
+        return KP_9;
     default:
         return ERR;
     }
