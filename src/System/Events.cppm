@@ -67,12 +67,19 @@ export enum class Keys : std::uint8_t {
     KP_ENTER
 };
 
-export enum class KeyMods : std::uint8_t {
-    NONE    = 0 << 0,
-    ALT     = 1 << 0,
-    CTRL    = 1 << 1,
-    SHIFT   = 1 << 2,
-    CONTROL = CTRL
+export enum class KeyMods : std::uint16_t {
+    NONE          = 0 << 0,
+    RIGHT_ALT     = 1 << 0,
+    LEFT_ALT      = 1 << 1,
+    RIGHT_CTRL    = 1 << 2,
+    LEFT_CTRL     = 1 << 3,
+    SHIFT         = 1 << 4,
+    NUMLOCK_ON    = 1 << 5,
+    SCROLLLOCK_ON = 1 << 6,
+    CAPSLOCK_ON   = 1 << 7,
+    ENHANCED      = 1 << 8,
+    ALT           = RIGHT_ALT bitor LEFT_ALT,
+    CTRL          = RIGHT_CTRL bitor LEFT_CTRL
 };
 
 export constexpr auto operator|(KeyMods lhs, KeyMods rhs) {
