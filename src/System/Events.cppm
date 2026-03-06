@@ -63,7 +63,8 @@ export enum class Keys : std::uint8_t {
     KP_6,
     KP_7,
     KP_8,
-    KP_9
+    KP_9,
+    KP_ENTER
 };
 
 export enum class KeyMods : std::uint8_t {

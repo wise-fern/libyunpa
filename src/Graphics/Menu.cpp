@@ -8,14 +8,18 @@ const TextOptions Menu::UnselectedDefault{};
 
 Menu::Menu() : Menu("") {}
 
-Menu::Menu(std::string_view title)
+Menu::Menu(std::string_view title, std::function<void(int)> callback)
     : Menu(title,
-           {.selected = SelectedDefault, .unselected = UnselectedDefault}) {}
+           {.selected = SelectedDefault, .unselected = UnselectedDefault},
+           std::move(callback)) {}
 
-Menu::Menu(std::string_view title, const MenuOptions &options)
+Menu::Menu(std::string_view         title,
+           const MenuOptions       &options,
+           std::function<void(int)> callback)
     : title(title),
       selectedOptions(options.selected),
-      unselectedOptions(options.unselected) {}
+      unselectedOptions(options.unselected),
+      callback(std::move(callback)) {}
 
 ftxui::Element Menu::render() const {
     using namespace ftxui;
@@ -52,8 +56,20 @@ void Menu::handle_key(Keys key) {
             index = 0;
         }
         break;
+    case KEY_SPACE:
+    case KEY_RETURN:
+    case KP_ENTER:
+        callback(index);
+        break;
     default:
         return;
     }
+}
+
+void Menu::handle_key(const Events::KeyEvent &event) {
+    if (not event.isKeyDown) {
+        return;
+    }
+    handle_key(event.key);
 }
 } // namespace libyunpa
