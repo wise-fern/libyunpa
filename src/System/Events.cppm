@@ -82,9 +82,22 @@ export enum class KeyMods : std::uint16_t {
     CTRL          = RIGHT_CTRL bitor LEFT_CTRL
 };
 
-export constexpr auto operator|(KeyMods lhs, KeyMods rhs) {
-    return static_cast<KeyMods>(static_cast<int>(lhs) bitor
-                                static_cast<int>(rhs));
+export constexpr auto operator bitor(KeyMods lhs, KeyMods rhs) {
+    return static_cast<KeyMods>(std::to_underlying(lhs) bitor
+                                std::to_underlying(rhs));
+}
+
+export constexpr auto &operator or_eq(KeyMods &lhs, KeyMods rhs) {
+    return lhs = lhs bitor rhs;
+}
+
+export constexpr auto operator bitand(KeyMods lhs, KeyMods rhs) {
+    return static_cast<KeyMods>(std::to_underlying(lhs) bitand
+                                std::to_underlying(rhs));
+}
+
+export constexpr auto &operator and_eq(KeyMods &lhs, const KeyMods &rhs) {
+    return lhs = static_cast<KeyMods>(lhs bitand rhs);
 }
 
 namespace Events {
