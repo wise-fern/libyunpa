@@ -3,6 +3,8 @@ module libyunpa;
 namespace libyunpa {
 ftxui::Element TextOptions::operator()(std::string_view text) const {
     auto result{ftxui::text(text)};
+    result or_eq ftxui::color(color);
+    result or_eq ftxui::bgcolor(bgColor);
     if (bold) {
         result or_eq ftxui::bold;
     }
@@ -26,8 +28,6 @@ ftxui::Element TextOptions::operator()(std::string_view text) const {
     case NONE:
         break;
     }
-    result or_eq ftxui::color(color);
-    result or_eq ftxui::bgcolor(bgColor);
 
     return result;
 }
